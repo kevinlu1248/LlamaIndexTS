@@ -2,6 +2,13 @@ import { Document, NodeRelationship, TextNode } from "./Node";
 import { SentenceSplitter } from "./TextSplitter";
 import { DEFAULT_CHUNK_OVERLAP, DEFAULT_CHUNK_SIZE } from "./constants";
 
+/**
+ * Splits the text of a document into smaller parts.
+ * 
+ * @param document - The document to split.
+ * @param textSplitter - The text splitter to use.
+ * @returns An array of text splits.
+ */
 export function getTextSplitsFromDocument(
   document: Document,
   textSplitter: SentenceSplitter
@@ -12,6 +19,15 @@ export function getTextSplitsFromDocument(
   return splits;
 }
 
+/**
+ * Generates an array of nodes from a document.
+ * 
+ * @param document - The document to generate nodes from.
+ * @param textSplitter - The text splitter to use.
+ * @param includeMetadata - Whether to include metadata in the nodes. Defaults to true.
+ * @param includePrevNextRel - Whether to include previous and next relationships in the nodes. Defaults to true.
+ * @returns An array of nodes.
+ */
 export function getNodesFromDocument(
   document: Document,
   textSplitter: SentenceSplitter,
