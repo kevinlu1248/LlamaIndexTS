@@ -1,8 +1,9 @@
 import fs from "fs/promises";
 import {
+  Anthropic,
   Document,
   VectorStoreIndex,
-  storageContextFromDefaults,
+  serviceContextFromDefaults,
 } from "llamaindex";
 
 async function main() {
@@ -15,12 +16,10 @@ async function main() {
   // Create Document object with essay
   const document = new Document({ text: essay });
 
-  // Split text and create embeddings. Store them in a VectorStoreIndex with persistence
-  const storageContext = await storageContextFromDefaults({
-    persistDir: "./storage",
-  });
+  // Split text and create embeddings. Store them in a VectorStoreIndex
+  const serviceContext = serviceContextFromDefaults({ llm: new Anthropic() });
   const index = await VectorStoreIndex.fromDocuments([document], {
-    storageContext,
+    serviceContext,
   });
 
   // Query the index

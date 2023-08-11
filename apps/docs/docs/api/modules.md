@@ -8,15 +8,18 @@ custom_edit_url: null
 
 ## Enumerations
 
+- [DeuceChatStrategy](enums/DeuceChatStrategy.md)
 - [IndexStructType](enums/IndexStructType.md)
 - [ListRetrieverMode](enums/ListRetrieverMode.md)
 - [MetadataMode](enums/MetadataMode.md)
 - [NodeRelationship](enums/NodeRelationship.md)
 - [ObjectType](enums/ObjectType.md)
 - [SimilarityType](enums/SimilarityType.md)
+- [VectorStoreQueryMode](enums/VectorStoreQueryMode.md)
 
 ## Classes
 
+- [Anthropic](classes/Anthropic.md)
 - [BaseEmbedding](classes/BaseEmbedding.md)
 - [BaseIndex](classes/BaseIndex.md)
 - [BaseNode](classes/BaseNode.md)
@@ -68,8 +71,11 @@ custom_edit_url: null
 - [ChatMessage](interfaces/ChatMessage.md)
 - [ChatResponse](interfaces/ChatResponse.md)
 - [Event](interfaces/Event.md)
+- [ExactMatchFilter](interfaces/ExactMatchFilter.md)
 - [GenericFileSystem](interfaces/GenericFileSystem.md)
 - [LLM](interfaces/LLM.md)
+- [MetadataFilters](interfaces/MetadataFilters.md)
+- [MetadataInfo](interfaces/MetadataInfo.md)
 - [NodeParser](interfaces/NodeParser.md)
 - [NodeWithEmbedding](interfaces/NodeWithEmbedding.md)
 - [NodeWithScore](interfaces/NodeWithScore.md)
@@ -86,6 +92,11 @@ custom_edit_url: null
 - [ToolMetadata](interfaces/ToolMetadata.md)
 - [VectorIndexConstructorProps](interfaces/VectorIndexConstructorProps.md)
 - [VectorIndexOptions](interfaces/VectorIndexOptions.md)
+- [VectorStore](interfaces/VectorStore.md)
+- [VectorStoreInfo](interfaces/VectorStoreInfo.md)
+- [VectorStoreQuery](interfaces/VectorStoreQuery.md)
+- [VectorStoreQueryResult](interfaces/VectorStoreQueryResult.md)
+- [VectorStoreQuerySpec](interfaces/VectorStoreQuerySpec.md)
 - [WalkableFileSystem](interfaces/WalkableFileSystem.md)
 
 ## Type Aliases
@@ -106,7 +117,7 @@ ___
 
 #### Defined in
 
-[llm/LLM.ts:26](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L26)
+[llm/LLM.ts:39](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L39)
 
 ___
 
@@ -136,7 +147,7 @@ ___
 
 #### Defined in
 
-[llm/LLM.ts:7](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L7)
+[llm/LLM.ts:20](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L20)
 
 ___
 
@@ -217,7 +228,7 @@ NOTE 2: we default to empty string to make it easy to calculate prompt sizes
 
 #### Defined in
 
-[llm/LLM.ts:162](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L162)
+[llm/LLM.ts:205](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L205)
 
 ___
 
@@ -242,7 +253,7 @@ We currently support GPT-3.5 and GPT-4 models
 
 #### Defined in
 
-[llm/LLM.ts:58](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L58)
+[llm/LLM.ts:71](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L71)
 
 ___
 
@@ -298,7 +309,7 @@ ___
 
 ### DEFAULT\_DOC\_STORE\_PERSIST\_FILENAME
 
-• `Const` **DEFAULT\_DOC\_STORE\_PERSIST\_FILENAME**: ``"docstore.json"``
+• `Const` **DEFAULT\_DOC\_STORE\_PERSIST\_FILENAME**: ``"doc_store.json"``
 
 #### Defined in
 
@@ -421,7 +432,7 @@ ___
 
 #### Defined in
 
-[llm/LLM.ts:45](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L45)
+[llm/LLM.ts:58](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L58)
 
 ___
 
@@ -440,7 +451,7 @@ ___
 
 #### Defined in
 
-[llm/LLM.ts:50](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L50)
+[llm/LLM.ts:63](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/llm/LLM.ts#L63)
 
 ___
 
@@ -686,22 +697,26 @@ ___
 
 ▸ **getNodesFromDocument**(`document`, `textSplitter`, `includeMetadata?`, `includePrevNextRel?`): [`TextNode`](classes/TextNode.md)[]
 
+Generates an array of nodes from a document.
+
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `document` | [`Document`](classes/Document.md) | `undefined` |
-| `textSplitter` | [`SentenceSplitter`](classes/SentenceSplitter.md) | `undefined` |
-| `includeMetadata` | `boolean` | `true` |
-| `includePrevNextRel` | `boolean` | `true` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `document` | [`Document`](classes/Document.md) | `undefined` | The document to generate nodes from. |
+| `textSplitter` | [`SentenceSplitter`](classes/SentenceSplitter.md) | `undefined` | The text splitter to use. |
+| `includeMetadata` | `boolean` | `true` | Whether to include metadata in the nodes. |
+| `includePrevNextRel` | `boolean` | `true` | Whether to include previous and next relationships in the nodes. |
 
 #### Returns
 
 [`TextNode`](classes/TextNode.md)[]
 
+An array of nodes.
+
 #### Defined in
 
-[NodeParser.ts:15](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/NodeParser.ts#L15)
+[NodeParser.ts:29](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/NodeParser.ts#L29)
 
 ___
 
@@ -730,20 +745,24 @@ ___
 
 ▸ **getTextSplitsFromDocument**(`document`, `textSplitter`): `string`[]
 
+Splits the text of a document into smaller parts.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `document` | [`Document`](classes/Document.md) |
-| `textSplitter` | [`SentenceSplitter`](classes/SentenceSplitter.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `document` | [`Document`](classes/Document.md) | The document to split. |
+| `textSplitter` | [`SentenceSplitter`](classes/SentenceSplitter.md) | The text splitter to use. |
 
 #### Returns
 
 `string`[]
 
+An array of text splits.
+
 #### Defined in
 
-[NodeParser.ts:5](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/NodeParser.ts#L5)
+[NodeParser.ts:11](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/NodeParser.ts#L11)
 
 ___
 
@@ -769,7 +788,7 @@ Get the top K embeddings from a list of embeddings ordered by similarity to the 
 
 #### Defined in
 
-[Embedding.ts:77](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L77)
+[Embedding.ts:84](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L84)
 
 ___
 
@@ -785,7 +804,7 @@ ___
 | `embeddings` | `number`[][] | `undefined` |
 | `similarityTopK?` | `number` | `undefined` |
 | `embeddingsIds?` | `any`[] | `undefined` |
-| `queryMode` | `VectorStoreQueryMode` | `VectorStoreQueryMode.SVM` |
+| `queryMode` | [`VectorStoreQueryMode`](enums/VectorStoreQueryMode.md) | `VectorStoreQueryMode.SVM` |
 
 #### Returns
 
@@ -793,7 +812,7 @@ ___
 
 #### Defined in
 
-[Embedding.ts:119](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L119)
+[Embedding.ts:126](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L126)
 
 ___
 
@@ -819,7 +838,7 @@ ___
 
 #### Defined in
 
-[Embedding.ts:131](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L131)
+[Embedding.ts:138](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L138)
 
 ___
 
@@ -840,6 +859,26 @@ ___
 #### Defined in
 
 [indices/BaseIndex.ts:70](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/indices/BaseIndex.ts#L70)
+
+___
+
+### jsonToNode
+
+▸ **jsonToNode**(`json`): [`TextNode`](classes/TextNode.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `json` | `any` |
+
+#### Returns
+
+[`TextNode`](classes/TextNode.md)
+
+#### Defined in
+
+[Node.ts:243](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Node.ts#L243)
 
 ___
 
@@ -934,7 +973,7 @@ similartiy score with higher numbers meaning the two embeddings are more similar
 
 #### Defined in
 
-[Embedding.ts:22](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L22)
+[Embedding.ts:29](https://github.com/run-llama/LlamaIndexTS/blob/main/packages/core/src/Embedding.ts#L29)
 
 ___
 

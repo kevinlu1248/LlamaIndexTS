@@ -1,5 +1,39 @@
 # llamaindex
 
+## 0.0.17
+
+### Patch Changes
+
+- f80b062: Breaking: changed default temp to 0.1 matching new Python change by @logan-markewich
+- b3fec86: Add support for new Replicate 4 bit Llama2 models
+- b3fec86: Bug fixes for Llama2 Replicate
+
+## 0.0.16
+
+### Patch Changes
+
+- ec12633: Breaking: make vector store abstraction async (thank you @tyre for the PR)
+- 9214b06: Fix persistence bug (thanks @HenryHengZJ)
+- 3e52972: Fix Node initializer bug (thank you @tyre for the PR)
+- 3316c6b: Add Azure OpenAI support
+- 3316c6b: OpenAI Node v4-beta.8
+
+## 0.0.15
+
+### Patch Changes
+
+- b501eb5: Added Anthropic Claude support
+- f9d1a6e: Add Top P
+
+## 0.0.14
+
+### Patch Changes
+
+- 4ef334a: JSDoc and Github Actions thanks to @kevinlu1248, @sweep-ai
+- 0af7773: Added Meta strategy for Llama2
+- bea4af9: Fixed sentence splitter overlap logic
+- 4ef334a: asQueryEngine bug fix from @ysak-y
+
 ## 0.0.13
 
 ### Patch Changes
